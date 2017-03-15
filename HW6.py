@@ -180,13 +180,10 @@ print("\n\n***** Problem 10 *****")
 
 # Define readfiles (make sure to close the file reference in the right place)
 def readfiles(list1):
-    print(type(list1))
     for f in list1:
-        input_file = open(f, 'r')
-        content = input_file.read()
-        for line in content.split():
-            yield line
-        input_file.close()
+        with open(f) as x:
+            for line in x:
+                yield line
     
 
 
