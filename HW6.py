@@ -180,37 +180,44 @@ print("\n\n***** Problem 10 *****")
 
 # Define readfiles (make sure to close the file reference in the right place)
 def readfiles(list1):
+    print(type(list1))
     for f in list1:
-        with open(f) as x:
-            for line in x:
-                yield line
+        input_file = open(f, 'r')
+        content = input_file.read()
+        for line in content.split():
+            yield line
+        input_file.close()
     
 
 
 
 # Define len_check
-def len_check():
-    for lines in readfiles():
-        if len(line) > 40:
-            yield line
+def len_check(func):
+    genob = [line for line in func if len(line) > 40]
+    return genob
 
+    
 
 
 
 # Define main_filterer
-def main_filterer(list2):
-    lines = readlines(list2)
-    lines2 = len_check(line)
+def main_filterer(list1):
+    print(list1)
+    lines = readfiles(list1)
+    long_lines = len_check(lines)
+    return long_lines
+    
 
 
 
 
 
 ## Uncomment this code to test so you can see easily what results from your code. DO uncomment it. DO NOT delete or change it. (You can add other code above while you work, of course.)
-# provided_file_names = ["samplehw6_1.txt","samplehw6_2.txt"]
-# for ln in main_filterer(provided_file_names):
-#     print(ln.rstrip('\n'), end=" ")
+provided_file_names = ["samplehw6_1.txt","samplehw6_2.txt"]
+for ln in main_filterer(provided_file_names):
+    print(ln.rstrip('\n'), end=" ")
 #####
+
 
 
 ##### TESTS BELOW THIS LINE. DO NOT CHANGE ANY CODE BELOW THIS LINE. #####
