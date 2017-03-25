@@ -153,7 +153,7 @@ more_than_2_rts = cur.fetchall()
 query = 'SELECT tweet_text FROM Tweets WHERE tweet_text like "%RT%"'
 cur.execute(query)
 first_rt = cur.fetchone()[0]
-print(first_rt)
+
 
 
 # Finally, done with database stuff for a bit: write a line of code to close the cursor to the database.
@@ -173,8 +173,11 @@ print(first_rt)
 # Also note that the SET type is what this function should return, NOT a list or tuple. We looked at very briefly at sets when we looked at set comprehensions last week. In a Python 3 set, which is a special data type, it's a lot like a combination of a list and a dictionary: no key-value pairs, BUT each element in a set is by definition unique. You can't have duplicates.
 
 # If you want to challenge yourself here -- this function definition (what goes under the def statement) CAN be written in one line! Definitely, definitely fine to write it with multiple lines, too, which will be much easier and clearer.
-
-
+def get_twitter_users(string1):
+	valid_combo = (re.findall("(?<=^|(?<=[^a-zA-Z0-9-_\.]))@([A-Za-z]+[A-Za-z0-9]+)",string1))
+	return valid_combo
+ps = get_twitter_users("hey @umich, @aadl is pretty great, huh? @student1 @student2")
+print(ps)
 
 
 
