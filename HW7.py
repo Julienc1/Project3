@@ -174,8 +174,17 @@ first_rt = cur.fetchone()[0]
 
 # If you want to challenge yourself here -- this function definition (what goes under the def statement) CAN be written in one line! Definitely, definitely fine to write it with multiple lines, too, which will be much easier and clearer.
 def get_twitter_users(string1):
-	valid_combo = (re.findall("(?<=^|(?<=[^a-zA-Z0-9-_\.]))@([A-Za-z]+[A-Za-z0-9]+)",string1))
-	return valid_combo
+	p = re.findall("(?<=^|(?<=[^a-zA-Z0-9-_\.]))@([A-Za-z_]+[A-Za-z0-9_]+)", string1)
+	return set(p)
+
+
+
+
+
+
+
+
+
 ps = get_twitter_users("hey @umich, @aadl is pretty great, huh? @student1 @student2")
 print(ps)
 
