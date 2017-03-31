@@ -8,7 +8,7 @@
 
 import unittest
 import itertools
-import collections
+from collections import Counter
 import tweepy
 import twitter_info # same deal as always...
 import json
@@ -192,6 +192,7 @@ screen_names = [" ".join(x) for x in screen_names1]
 query = 'SELECT * FROM Tweets WHERE retweets > 25 '
 cur.execute(query)
 more_than_25_rts = cur.fetchall()
+#print(more_than_25_rts)
 
 
 # Make a query to select all the descriptions (descriptions only) of the users who have favorited more than 25 tweets. Access all those strings, and save them in a variable called descriptions_fav_users, which should ultimately be a list of strings.
@@ -203,7 +204,9 @@ descriptions_fav_users = [" ".join(x) for x in descriptions_fav_users1]
 
 # Make a query using an INNER JOIN to get a list of tuples with 2 elements in each tuple: the user screenname and the text of the tweet -- for each tweet that has been retweeted more than 50 times. Save the resulting list of tuples in a variable called joined_result.
 
-
+query = 'SELECT screen_name, tweet_text FROM Tweets INNER JOIN Users on Tweets.user_id=Users.user_id WHERE Tweets.retweets > 25'
+cur.execute(query)
+joined_result = cur.fetchall()
 
 
 
@@ -217,10 +220,24 @@ descriptions_fav_users = [" ".join(x) for x in descriptions_fav_users1]
 ## Task 4 - Manipulating data with comprehensions & libraries
 
 ## Use a set comprehension to get a set of all words (combinations of characters separated by whitespace) among the descriptions in the descriptions_fav_users list. Save the resulting set in a variable called description_words.
-
+list1 = [word for line in descriptions_fav_users for word in line.split()]
+description_words = set(list1)
 
 
 ## Use a Counter in the collections library to find the most common character among all of the descriptions in the descriptions_fav_users list. Save that most common character in a variable called most_common_char. Break any tie alphabetically (but using a Counter will do a lot of work for you...).
+character_list = []
+for item in descriptions_fav_users:
+	for word in item:
+		character_list.append(word)
+
+
+c = Counter(character_list)
+most_common_char1 = c.most_common(3)
+tuple1 = most_common_char1[1]
+most_common_char = tuple1[0]
+
+
+
 
 
 
